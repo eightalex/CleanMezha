@@ -1,165 +1,219 @@
 body {
+    /* Плавна зміна фону при перемиканні між темами */
     transition: background 300ms cubic-bezier(0.22, 0.61, 0.36, 1);
+
+    & > div:first-of-type {
+        display: none;
+    }
+
 }
 
-body > div:first-of-type {
-    display: none;
-}
-
-.section_top {
-    display: none;
-}
-
-.header_top_wrapper.header_top_wrapper_first {
-    display: none;
+.header_top_wrapper{
+    &.header_top_wrapper_first {
+        display: none;
+    }
 }
 
 .layout_wrapper {
     max-width: 1200px !important;
 }
 
-.main_menu {
-    margin: 0 auto !important;
-    max-width: 1170px !important;
-    justify-content: space-between !important;
-    text-transform: none !important;
+.header {
+    & .header_main {
+        & .layout_wrapper {
+            & .header_wrapper {
+                & .header_wrapper_r {
+                    display: none !important;
+                }
+
+                & .header_wrapper_t {
+                    display: none !important;
+                }
+            }
+        }
+    }
 }
 
-.main_menu > li {
-    margin: 0 !important;
+.main_menu_wrapper {
+    & .layout_wrapper {
+        & .main_menu {
+            flex-wrap: wrap;
+            justify-content: space-between !important;
+            margin: 0 auto !important;
+            max-width: 1170px !important;
+            text-transform: none !important;
+
+            & > li {
+                margin: 0 !important;
+            }
+        }
+    }
 }
 
-.header_wrapper_r {
-    display: none;
-}
+.main {
+    & .section_top {
+        display: none;
+    }
 
-.header_wrapper_t {
-    display: none !important;
-}
+    & .layout_n_wrapper {
+        & .section_list_wrapper {
+            justify-content: center;
 
-.section_side {
-    display: none;
-}
+            & .section_list_content {
+                max-width: 1200px !important;
+                padding: 0 !important;
 
-.section_list_wrapper {
-    justify-content: center;
-}
+                & .section_articles_list_wrapper {
+                    & .section_title {
+                        padding: 50px 0 !important;
+                        font-size: 32px !important;
+                        text-transform: none !important;
+                    }
 
-.section_list_content {
-    max-width: 1200px !important;
-    padding: 0 !important;
-}
+                    & .section_topic_b {
+                        display: none;
+                    }
 
-.section_topic_b {
-    display: none;
-}
+                    & .article {
+                        & .article_body {
+                            & .article_content {
+                                & .article_date {
+                                    text-transform: none !important;
 
-.section_title {
-    padding: 50px 0 !important;
-    font-size: 32px !important;
-    text-transform: none !important;
-}
+                                    & .comment_icon {
+                                        display: flex !important;
+                                        align-items: end !important;
+                                        gap: 2px !important;
+                                        margin-top: 5px !important;
 
-.article_date {
-    text-transform: none !important;
-}
+                                        & .comment_s_icon {
+                                            width: 20px !important;
+                                            height: 19px !important;
+                                        }
 
-.article_date .comment_icon {
-    display: flex !important;
-    align-items: end !important;
-    gap: 2px !important;
-    margin-top: 5px !important;
-}
+                                        & span {
+                                            padding-bottom: 2px !important;
+                                            font-size: 14px !important;
+                                            font-weight: normal !important;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
 
-.article_date .comment_icon .comment_s_icon {
-    width: 20px !important;
-    height: 19px !important;
-}
+            & .section_side {
+                display: none;
+            }
+        }
+    }
 
-.article_date .comment_icon span {
-    padding-bottom: 2px !important;
-    font-size: 14px !important;
-    font-weight: normal !important;
-}
+    /* Сторінка новин */
+    & .section_news {
+        & .section_news_wrapper {
+            grid-template-columns: auto !important;
+            padding: 0 30px !important;
+            max-width: 1000px !important;
 
-.main_menu {
-    flex-wrap: wrap;
-}
+            /* Сайдбар зліва з "Топ обговорень" та "Останні новини" */
+            & .section_news_side {
+                display: none;
+            }
 
-.main .section_news .section_news_wrapper .section_news_side {
-    display: none;
-}
+            & .post_news {
+                & .post_news_body {
+                    margin-bottom: 30px !important;
+                }
+            }
+        }
+    }
 
-.main .section_article .section_article_wrapper .section_article_adv {
-    display: none;
-}
+    /* Сторінка статті */
+    & .section_article {
+        & .section_article_wrapper {
+            /* Сайдбар справа з новинами партнерів */
+            & .section_article_adv {
+                display: none;
+            }
 
-.main .section_news .section_news_wrapper {
-    grid-template-columns: auto !important;
-    padding: 0 30px !important;
-    max-width: 1000px !important;
-}
+            & .post_article {
+                & .post_article_body {
+                    & .post_text {
+                        & .fullwidth_element {
+                            margin: 15px auto 12px !important;
+                        }
 
-.main .post_article_body .post_text .fullwidth_element {
-    margin: 15px auto 12px !important;
-}
+                        & blockquote {
+                            margin-left: 20px !important;
+                            margin-right: 20px !important;
+                        }
+                    }
+                }
+            }
+        }
+    }
 
-.post_text blockquote {
-    margin-left: 20px !important;
-    margin-right: 20px !important;
+    /* Іконки соцмереж. Є як на сторінці новин, так і на сторінці статті */
+    & .post_social {
+        display: flex;
+        gap: 8px;
+
+        & > a {
+            display: inline-flex !important;
+            justify-content: center;
+            align-content: center;
+            margin: 0 !important;
+            width: 24px !important;
+            height: 24px !important;
+            border-width: 1px !important;
+
+            & > svg {
+                width: 22px !important;
+                height: 22px !important;
+            }
+        }
+    }
 }
 
 .section_news_adv {
     display: none;
 }
 
-.post_news_body {
-    margin-bottom: 30px !important;
-}
-
-.post_social {
-    display: flex;
-    gap: 8px;
-}
-
-.post_social > a {
-    display: inline-flex !important;
-    justify-content: center;
-    align-content: center;
-    margin: 0 !important;
-    width: 24px !important;
-    height: 24px !important;
-    border-width: 1px !important;
-}
-
-.post_social > a > svg {
-    width: 22px !important;
-    height: 22px !important;
-}
-
 .pagination {
     user-select: none;
+
+    & .pagination_item {
+        user-select: none;
+
+        &:hover {
+            user-select: none;
+        }
+
+        &.pagination_item_active {
+            cursor: default;
+            pointer-events: none;
+        }
+
+        & a {
+            &:hover {
+                color: var(--dark-color) !important;
+                background: var(--medium-green-color) !important;
+            }
+        }
+    }
 }
 
-.pagination .pagination_item {
-    user-select: none;
-}
-
-.pagination .pagination_item:hover {
-    user-select: none;
-}
-
-.pagination .pagination_item.pagination_item_active {
-    cursor: default;
-    pointer-events: none;
-}
-
-.pagination .pagination_item a:hover {
-    color: var(--dark-color) !important;
-    background: var(--medium-green-color) !important;
-}
-
-[data-theme=dark] .pagination .pagination_item a:hover {
-    color: var(--dark-theme-color) !important;
-    background: var(--light-divider-color) !important;
+[data-theme=dark] {
+    & .pagination {
+        & .pagination_item {
+            & a {
+                &:hover {
+                    color: var(--dark-theme-color) !important;
+                    background: var(--light-divider-color) !important;
+                }
+            }
+        }
+    }
 }
