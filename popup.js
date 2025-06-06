@@ -1,11 +1,19 @@
-const toggle = document.getElementById('ads-toggle');
+const toggleAds = document.getElementById('ads-toggle');
+const toggleOboronka = document.getElementById('oboronka-toggle');
 
-chrome.storage.sync.get(['hideAds'], (result) => {
-    toggle.checked = !!result.hideAds;
+chrome.storage.sync.get(['hideAds', 'hideOboronka'], (result) => {
+    toggleAds.checked = !!result.hideAds;
+    toggleOboronka.checked = !!result.hideOboronka;
 });
 
-toggle.addEventListener('change', () => {
+toggleAds.addEventListener('change', () => {
     chrome.storage.sync.set({
-        hideAds: toggle.checked,
+        hideAds: toggleAds.checked,
+    });
+});
+
+toggleOboronka.addEventListener('change', () => {
+    chrome.storage.sync.set({
+        hideOboronka: toggleOboronka.checked,
     });
 });
