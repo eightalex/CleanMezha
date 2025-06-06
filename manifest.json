@@ -12,13 +12,13 @@
   ],
   "action": {
     "default_popup": "popup.html",
-    "default_icon": "icon96.png"
+    "default_icon": "image48.png"
   },
   "permissions": ["storage"],
-  "icons": {
-    "16": "icon16.png",
-    "32": "icon32.png",
-    "48": "icon48.png",
-    "128": "icon96.png"
-  }
+    "icons": {
+        "16": "image16.png",
+        "32": "image32.png",
+        "48": "image48.png",
+        "128": "image128.png"
+    }
 }
