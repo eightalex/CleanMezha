@@ -1,17 +1,24 @@
 {
   "manifest_version": 3,
   "name": "Clean Mezha",
-  "version": "1.0",
+  "version": "1.1",
   "description": "Плагін для очищення сайту mezha.media від реклами та інших елементів",
   "content_scripts": [
     {
       "matches": ["https://mezha.media/*"],
       "css": ["content.css"],
-      "js": ["content.js"],
-      "run_at": "document_idle"
+      "js": ["content.js"]
     }
   ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_icon": "icon96.png"
+  },
+  "permissions": ["storage"],
   "icons": {
-    "128": "icon128.png"
+    "16": "icon16.png",
+    "32": "icon32.png",
+    "48": "icon48.png",
+    "128": "icon96.png"
   }
 }
