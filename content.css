@@ -144,15 +144,15 @@ body {
                         & .fullwidth_element {
                             margin: 15px auto 12px !important;
                         }
-
-                        & blockquote {
-                            margin-left: 20px !important;
-                            margin-right: 20px !important;
-                        }
                     }
                 }
             }
         }
+    }
+
+    & blockquote {
+        margin-left: 20px !important;
+        margin-right: 20px !important;
     }
 
     /* Іконки соцмереж. Є як на сторінці новин, так і на сторінці статті */
