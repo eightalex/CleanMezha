@@ -44,3 +44,35 @@ function toggleArticlesByLinks(hide, wildcard) {
         }
     });
 }
+
+async function fetchReactions(url) {
+    try {
+        const res = await fetch(url);
+        const text = await res.text();
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(text, 'text/html');
+        return doc.querySelector('#reactions');
+    } catch (e) {
+        console.error('Failed to fetch reactions', e);
+        return null;
+    }
+}
+
+function insertReactions(article, reactions) {
+    if (!reactions) return;
+    const clone = reactions.cloneNode(true);
+    clone.style.marginTop = '10px';
+    const target = article.querySelector('.article_date') || article;
+    target.parentNode.insertBefore(clone, target.nextSibling);
+}
+
+function loadReactionsForArticles() {
+    document.querySelectorAll('.article').forEach(article => {
+        const link = article.querySelector('.article_title a');
+        if (link) {
+            fetchReactions(link.href).then(reactions => insertReactions(article, reactions));
+        }
+    });
+}
+
+loadReactionsForArticles();
