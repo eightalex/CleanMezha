@@ -15,10 +15,14 @@
     "default_icon": "image48.png"
   },
   "permissions": ["storage"],
-    "icons": {
-        "16": "image16.png",
-        "32": "image32.png",
-        "48": "image48.png",
-        "128": "image128.png"
+  "host_permissions": ["https://disqus.com/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "icons": {
+      "16": "image16.png",
+      "32": "image32.png",
+      "48": "image48.png",
+      "128": "image128.png"
     }
 }
