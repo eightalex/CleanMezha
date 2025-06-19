@@ -55,7 +55,7 @@ function fetchReactions(articleUrl, identifier) {
     });
     const embedUrl = `https://disqus.com/embed/comments/?${params.toString()}`;
     return new Promise(resolve => {
-        chrome.runtime.sendMessage({type: 'fetchReactions', url: embedUrl}, ({html}) => {
+        chrome.runtime.sendMessage({type: 'fetchReactions', url: embedUrl, articleUrl}, ({html}) => {
             if (html) {
                 const parser = new DOMParser();
                 const doc = parser.parseFromString(html, 'text/html');
@@ -69,6 +69,11 @@ function fetchReactions(articleUrl, identifier) {
 
 function insertReactions(article, reactions) {
     if (!reactions) return;
+    const existing = article.querySelector('#reactions');
+    if (existing) {
+        existing.replaceWith(reactions.cloneNode(true));
+        return;
+    }
     const clone = reactions.cloneNode(true);
     clone.style.marginTop = '10px';
     const target = article.querySelector('.article_date') || article;

@@ -1,6 +1,11 @@
 chrome.runtime.onMessage.addListener((msg, sender, sendResponse) => {
     if (msg.type === 'fetchReactions') {
-        fetch(msg.url)
+        fetch(msg.url, {
+            headers: {
+                'Referer': msg.articleUrl
+            },
+            credentials: 'omit'
+        })
             .then(res => res.text())
             .then(html => sendResponse({html}))
             .catch(() => sendResponse({html: null}));
