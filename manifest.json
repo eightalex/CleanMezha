@@ -15,6 +15,7 @@
     "default_icon": "image48.png"
   },
   "permissions": ["storage"],
+  "host_permissions": ["https://disqus.com/*"],
     "icons": {
         "16": "image16.png",
         "32": "image32.png",

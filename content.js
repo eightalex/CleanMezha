@@ -45,9 +45,17 @@ function toggleArticlesByLinks(hide, wildcard) {
     });
 }
 
-async function fetchReactions(url) {
+async function fetchReactions(articleUrl, identifier) {
+    const params = new URLSearchParams({
+        base: 'default',
+        f: 'mezha-media',
+        't_i': identifier,
+        't_u': articleUrl,
+        's_o': 'popular'
+    });
+    const embedUrl = `https://disqus.com/embed/comments/?${params.toString()}`;
     try {
-        const res = await fetch(url);
+        const res = await fetch(embedUrl);
         const text = await res.text();
         const parser = new DOMParser();
         const doc = parser.parseFromString(text, 'text/html');
@@ -69,8 +77,10 @@ function insertReactions(article, reactions) {
 function loadReactionsForArticles() {
     document.querySelectorAll('.article').forEach(article => {
         const link = article.querySelector('.article_title a');
-        if (link) {
-            fetchReactions(link.href).then(reactions => insertReactions(article, reactions));
+        const count = article.querySelector('.disqus-comment-count');
+        if (link && count && count.dataset.disqusIdentifier) {
+            fetchReactions(link.href, count.dataset.disqusIdentifier)
+                .then(reactions => insertReactions(article, reactions));
         }
     });
 }
