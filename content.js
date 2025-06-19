@@ -45,7 +45,7 @@ function toggleArticlesByLinks(hide, wildcard) {
     });
 }
 
-async function fetchReactions(articleUrl, identifier) {
+function fetchReactions(articleUrl, identifier) {
     const params = new URLSearchParams({
         base: 'default',
         f: 'mezha-media',
@@ -54,16 +54,17 @@ async function fetchReactions(articleUrl, identifier) {
         's_o': 'popular'
     });
     const embedUrl = `https://disqus.com/embed/comments/?${params.toString()}`;
-    try {
-        const res = await fetch(embedUrl);
-        const text = await res.text();
-        const parser = new DOMParser();
-        const doc = parser.parseFromString(text, 'text/html');
-        return doc.querySelector('#reactions');
-    } catch (e) {
-        console.error('Failed to fetch reactions', e);
-        return null;
-    }
+    return new Promise(resolve => {
+        chrome.runtime.sendMessage({type: 'fetchReactions', url: embedUrl}, ({html}) => {
+            if (html) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                resolve(doc.querySelector('#reactions'));
+            } else {
+                resolve(null);
+            }
+        });
+    });
 }
 
 function insertReactions(article, reactions) {
