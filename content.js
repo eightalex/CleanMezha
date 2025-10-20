@@ -44,3 +44,51 @@ function toggleArticlesByLinks(hide, wildcard) {
         }
     });
 }
+
+function fetchReactions(articleUrl, identifier) {
+    const params = new URLSearchParams({
+        base: 'default',
+        f: 'mezha-media',
+        't_i': identifier,
+        't_u': articleUrl,
+        's_o': 'popular'
+    });
+    const embedUrl = `https://disqus.com/embed/comments/?${params.toString()}`;
+    return new Promise(resolve => {
+        chrome.runtime.sendMessage({type: 'fetchReactions', url: embedUrl, articleUrl}, ({html}) => {
+            if (html) {
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(html, 'text/html');
+                resolve(doc.querySelector('#reactions'));
+            } else {
+                resolve(null);
+            }
+        });
+    });
+}
+
+function insertReactions(article, reactions) {
+    if (!reactions) return;
+    const existing = article.querySelector('#reactions');
+    if (existing) {
+        existing.replaceWith(reactions.cloneNode(true));
+        return;
+    }
+    const clone = reactions.cloneNode(true);
+    clone.style.marginTop = '10px';
+    const target = article.querySelector('.article_date') || article;
+    target.parentNode.insertBefore(clone, target.nextSibling);
+}
+
+function loadReactionsForArticles() {
+    document.querySelectorAll('.article').forEach(article => {
+        const link = article.querySelector('.article_title a');
+        const count = article.querySelector('.disqus-comment-count');
+        if (link && count && count.dataset.disqusIdentifier) {
+            fetchReactions(link.href, count.dataset.disqusIdentifier)
+                .then(reactions => insertReactions(article, reactions));
+        }
+    });
+}
+
+loadReactionsForArticles();
